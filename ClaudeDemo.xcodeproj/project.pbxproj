@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		433AAFE32EAAAAAB008A289D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433AAFE22EAAAAAB008A289D /* WidgetKit.framework */; };
+		433AAFE52EAAAAAB008A289D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433AAFE42EAAAAAB008A289D /* SwiftUI.framework */; };
+		433AAFF42EAAAAAC008A289D /* ClaudeDemoLiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 433AAFE02EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		433AAFA12EAA6548008A289D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,13 +27,48 @@
 			remoteGlobalIDString = 433AAF912EAA6547008A289D;
 			remoteInfo = ClaudeDemo;
 		};
+		433AAFF22EAAAAAC008A289D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 433AAF8A2EAA6546008A289D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 433AAFDF2EAAAAAB008A289D;
+			remoteInfo = ClaudeDemoLiveActivityExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		433AAFF92EAAAAAC008A289D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				433AAFF42EAAAAAC008A289D /* ClaudeDemoLiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		433AAF922EAA6547008A289D /* ClaudeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClaudeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		433AAFA02EAA6548008A289D /* ClaudeDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClaudeDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		433AAFAA2EAA6548008A289D /* ClaudeDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClaudeDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		433AAFE02EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClaudeDemoLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		433AAFE22EAAAAAB008A289D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		433AAFE42EAAAAAB008A289D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		433AAFFA2EAAAB01008A289D /* ClaudeDemoLiveActivityExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClaudeDemoLiveActivityExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		433AAFF52EAAAAAC008A289D /* Exceptions for "ClaudeDemoLiveActivity" folder in "ClaudeDemoLiveActivityExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 433AAFDF2EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		433AAF942EAA6547008A289D /* ClaudeDemo */ = {
@@ -43,6 +84,14 @@
 		433AAFAD2EAA6548008A289D /* ClaudeDemoUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ClaudeDemoUITests;
+			sourceTree = "<group>";
+		};
+		433AAFE62EAAAAAB008A289D /* ClaudeDemoLiveActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				433AAFF52EAAAAAC008A289D /* Exceptions for "ClaudeDemoLiveActivity" folder in "ClaudeDemoLiveActivityExtension" target */,
+			);
+			path = ClaudeDemoLiveActivity;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -69,15 +118,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		433AAFDD2EAAAAAB008A289D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				433AAFE52EAAAAAB008A289D /* SwiftUI.framework in Frameworks */,
+				433AAFE32EAAAAAB008A289D /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		433AAF892EAA6546008A289D = {
 			isa = PBXGroup;
 			children = (
+				433AAFFA2EAAAB01008A289D /* ClaudeDemoLiveActivityExtension.entitlements */,
 				433AAF942EAA6547008A289D /* ClaudeDemo */,
 				433AAFA32EAA6548008A289D /* ClaudeDemoTests */,
 				433AAFAD2EAA6548008A289D /* ClaudeDemoUITests */,
+				433AAFE62EAAAAAB008A289D /* ClaudeDemoLiveActivity */,
+				433AAFE12EAAAAAB008A289D /* Frameworks */,
 				433AAF932EAA6547008A289D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,8 +149,18 @@
 				433AAF922EAA6547008A289D /* ClaudeDemo.app */,
 				433AAFA02EAA6548008A289D /* ClaudeDemoTests.xctest */,
 				433AAFAA2EAA6548008A289D /* ClaudeDemoUITests.xctest */,
+				433AAFE02EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		433AAFE12EAAAAAB008A289D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				433AAFE22EAAAAAB008A289D /* WidgetKit.framework */,
+				433AAFE42EAAAAAB008A289D /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,10 +173,12 @@
 				433AAF8E2EAA6547008A289D /* Sources */,
 				433AAF8F2EAA6547008A289D /* Frameworks */,
 				433AAF902EAA6547008A289D /* Resources */,
+				433AAFF92EAAAAAC008A289D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				433AAFF32EAAAAAC008A289D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				433AAF942EAA6547008A289D /* ClaudeDemo */,
@@ -163,6 +236,28 @@
 			productReference = 433AAFAA2EAA6548008A289D /* ClaudeDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		433AAFDF2EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 433AAFF62EAAAAAC008A289D /* Build configuration list for PBXNativeTarget "ClaudeDemoLiveActivityExtension" */;
+			buildPhases = (
+				433AAFDC2EAAAAAB008A289D /* Sources */,
+				433AAFDD2EAAAAAB008A289D /* Frameworks */,
+				433AAFDE2EAAAAAB008A289D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				433AAFE62EAAAAAB008A289D /* ClaudeDemoLiveActivity */,
+			);
+			name = ClaudeDemoLiveActivityExtension;
+			packageProductDependencies = (
+			);
+			productName = ClaudeDemoLiveActivityExtension;
+			productReference = 433AAFE02EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +279,9 @@
 						CreatedOnToolsVersion = 16.3;
 						TestTargetID = 433AAF912EAA6547008A289D;
 					};
+					433AAFDF2EAAAAAB008A289D = {
+						CreatedOnToolsVersion = 16.3;
+					};
 				};
 			};
 			buildConfigurationList = 433AAF8D2EAA6547008A289D /* Build configuration list for PBXProject "ClaudeDemo" */;
@@ -203,6 +301,7 @@
 				433AAF912EAA6547008A289D /* ClaudeDemo */,
 				433AAF9F2EAA6548008A289D /* ClaudeDemoTests */,
 				433AAFA92EAA6548008A289D /* ClaudeDemoUITests */,
+				433AAFDF2EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -223,6 +322,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		433AAFA82EAA6548008A289D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		433AAFDE2EAAAAAB008A289D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,6 +359,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		433AAFDC2EAAAAAB008A289D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -265,6 +378,11 @@
 			isa = PBXTargetDependency;
 			target = 433AAF912EAA6547008A289D /* ClaudeDemo */;
 			targetProxy = 433AAFAB2EAA6548008A289D /* PBXContainerItemProxy */;
+		};
+		433AAFF32EAAAAAC008A289D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 433AAFDF2EAAAAAB008A289D /* ClaudeDemoLiveActivityExtension */;
+			targetProxy = 433AAFF22EAAAAAC008A289D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -398,6 +516,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Cette application a besoin de votre localisation pour afficher votre position sur la carte.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -438,6 +557,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Cette application a besoin de votre localisation pour afficher votre position sur la carte.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -555,6 +675,67 @@
 			};
 			name = Release;
 		};
+		433AAFF72EAAAAAC008A289D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ClaudeDemoLiveActivityExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 32CVVV5F7J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClaudeDemoLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClaudeDemoLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = okeenea.ClaudeDemo.ClaudeDemoLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		433AAFF82EAAAAAC008A289D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ClaudeDemoLiveActivityExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 32CVVV5F7J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClaudeDemoLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClaudeDemoLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = okeenea.ClaudeDemo.ClaudeDemoLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -590,6 +771,15 @@
 			buildConfigurations = (
 				433AAFBB2EAA6548008A289D /* Debug */,
 				433AAFBC2EAA6548008A289D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		433AAFF62EAAAAAC008A289D /* Build configuration list for PBXNativeTarget "ClaudeDemoLiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				433AAFF72EAAAAAC008A289D /* Debug */,
+				433AAFF82EAAAAAC008A289D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
