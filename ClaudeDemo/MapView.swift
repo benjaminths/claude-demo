@@ -10,6 +10,7 @@ import MapKit
 
 struct MapView: View {
     @StateObject private var locationManager = LocationManager()
+    @StateObject private var announcementCoordinator = POIAnnouncementCoordinator()
     @State private var position: MapCameraPosition = .region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
@@ -29,10 +30,25 @@ struct MapView: View {
             }
             .mapFeatureSelectionAccessory(.callout)
             .overlay(alignment: .topTrailing) {
-                MapUserLocationButton(scope: mapScope)
+                VStack(spacing: 12) {
+                    MapUserLocationButton(scope: mapScope)
+                        .buttonBorderShape(.circle)
+
+                    Button(action: {
+                        announcementCoordinator.toggle(at: locationManager.location)
+                    }) {
+                        Image(systemName: announcementCoordinator.isEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(announcementCoordinator.isEnabled ? .blue : .gray)
+                            .frame(width: 44, height: 44)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .shadow(radius: 2)
+                    }
                     .buttonBorderShape(.circle)
-                    .padding(.top, 60)
-                    .padding(.trailing, 16)
+                }
+                .padding(.top, 60)
+                .padding(.trailing, 16)
             }
             .mapScope(mapScope)
             .edgesIgnoringSafeArea(.all)
@@ -40,12 +56,17 @@ struct MapView: View {
                 handleMapSelection(newSelection)
             }
             .onChange(of: locationManager.location) { _, newLocation in
-                if let location = newLocation, !hasInitiallyPositioned {
-                    position = .region(MKCoordinateRegion(
-                        center: location.coordinate,
-                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                    ))
-                    hasInitiallyPositioned = true
+                if let location = newLocation {
+                    if !hasInitiallyPositioned {
+                        position = .region(MKCoordinateRegion(
+                            center: location.coordinate,
+                            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                        ))
+                        hasInitiallyPositioned = true
+                    }
+
+                    // Update coordinator with new location
+                    announcementCoordinator.updateLocation(location)
                 }
             }
             .sheet(isPresented: $showingPOIDetails) {
@@ -55,6 +76,8 @@ struct MapView: View {
                         .presentationDragIndicator(.hidden)
                         .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.6)))
                         .interactiveDismissDisabled(false)
+                } else {
+                    ProgressView()
                 }
             }
 
