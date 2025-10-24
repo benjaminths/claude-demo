@@ -10,6 +10,7 @@ import MapKit
 
 struct MapView: View {
     @StateObject private var locationManager = LocationManager()
+    @StateObject private var liveActivityManager: LiveActivityManager
     @State private var position: MapCameraPosition = .region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
@@ -20,7 +21,17 @@ struct MapView: View {
     @State private var selectedPOI: MKMapItem?
     @State private var showingPOIDetails = false
     @State private var hasInitiallyPositioned = false
+    @State private var lastLocationUpdateForActivity: CLLocation?
     @Namespace private var mapScope
+
+    init() {
+        if #available(iOS 16.1, *) {
+            _liveActivityManager = StateObject(wrappedValue: LiveActivityManager())
+        } else {
+            // Fallback for older iOS versions (though this app targets iOS 18.4+)
+            _liveActivityManager = StateObject(wrappedValue: LiveActivityManager())
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -47,8 +58,26 @@ struct MapView: View {
                     ))
                     hasInitiallyPositioned = true
                 }
+
+                // Update Live Activity distance if user moved more than 10m
+                if let location = newLocation {
+                    if let lastLocation = lastLocationUpdateForActivity {
+                        let distance = location.distance(from: lastLocation)
+                        if distance >= 10 {
+                            if #available(iOS 16.1, *) {
+                                liveActivityManager.updateDistance(userLocation: location)
+                            }
+                            lastLocationUpdateForActivity = location
+                        }
+                    } else {
+                        lastLocationUpdateForActivity = location
+                    }
+                }
             }
-            .sheet(isPresented: $showingPOIDetails) {
+            .sheet(isPresented: $showingPOIDetails, onDismiss: {
+                // Keep Live Activity running even when sheet is dismissed
+                // User can stop it by dismissing the Dynamic Island
+            }) {
                 if let poi = selectedPOI {
                     POIDetailView(poi: poi)
                         .presentationDetents([.fraction(0.6), .large])
@@ -82,6 +111,13 @@ struct MapView: View {
             do {
                 selectedPOI = try await request.mapItem
                 showingPOIDetails = true
+
+                // Start Live Activity when POI is selected
+                if let poi = selectedPOI, let userLocation = locationManager.location {
+                    if #available(iOS 16.1, *) {
+                        liveActivityManager.startActivity(poi: poi, userLocation: userLocation)
+                    }
+                }
             } catch {
                 // Silently handle errors
             }
