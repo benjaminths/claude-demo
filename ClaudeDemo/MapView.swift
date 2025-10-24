@@ -8,6 +8,12 @@
 import SwiftUI
 import MapKit
 
+extension MKMapItem: @retroactive Identifiable {
+    public var id: String {
+        return "\(placemark.coordinate.latitude),\(placemark.coordinate.longitude),\(name ?? "unknown")"
+    }
+}
+
 struct MapView: View {
     @StateObject private var locationManager = LocationManager()
     @State private var position: MapCameraPosition = .region(
@@ -18,7 +24,6 @@ struct MapView: View {
     )
     @State private var selection: MapSelection<MKMapItem>?
     @State private var selectedPOI: MKMapItem?
-    @State private var showingPOIDetails = false
     @State private var hasInitiallyPositioned = false
     @Namespace private var mapScope
 
@@ -48,14 +53,12 @@ struct MapView: View {
                     hasInitiallyPositioned = true
                 }
             }
-            .sheet(isPresented: $showingPOIDetails) {
-                if let poi = selectedPOI {
-                    POIDetailView(poi: poi)
-                        .presentationDetents([.fraction(0.6), .large])
-                        .presentationDragIndicator(.hidden)
-                        .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.6)))
-                        .interactiveDismissDisabled(false)
-                }
+            .sheet(item: $selectedPOI) { poi in
+                POIDetailView(poi: poi)
+                    .presentationDetents([.fraction(0.6), .large])
+                    .presentationDragIndicator(.hidden)
+                    .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.6)))
+                    .interactiveDismissDisabled(false)
             }
 
             VStack {
@@ -77,13 +80,21 @@ struct MapView: View {
     private func handleMapSelection(_ selection: MapSelection<MKMapItem>?) {
         guard let feature = selection?.feature else { return }
 
-        Task {
+        Task { @MainActor in
             let request = MKMapItemRequest(feature: feature)
             do {
-                selectedPOI = try await request.mapItem
-                showingPOIDetails = true
+                // Small delay to ensure MapKit resources are loaded
+                try await Task.sleep(nanoseconds: 100_000_000) // 0.1 second
+
+                let mapItem = try await request.mapItem
+
+                // Ensure we're still on main thread when updating UI state
+                self.selectedPOI = mapItem
             } catch {
-                // Silently handle errors
+                print("Error loading POI details: \(error.localizedDescription)")
+                // Reset selection on error
+                self.selection = nil
+                self.selectedPOI = nil
             }
         }
     }
