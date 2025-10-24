@@ -10,6 +10,7 @@ import MapKit
 
 struct MapView: View {
     @StateObject private var locationManager = LocationManager()
+    @StateObject private var announcementManager = POIAnnouncementManager()
     @State private var position: MapCameraPosition = .region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
@@ -29,10 +30,22 @@ struct MapView: View {
             }
             .mapFeatureSelectionAccessory(.callout)
             .overlay(alignment: .topTrailing) {
-                MapUserLocationButton(scope: mapScope)
-                    .buttonBorderShape(.circle)
-                    .padding(.top, 60)
-                    .padding(.trailing, 16)
+                VStack(spacing: 12) {
+                    Button(action: toggleAnnouncements) {
+                        Image(systemName: announcementManager.isAnnouncing ? "speaker.wave.3.fill" : "speaker.slash.fill")
+                            .font(.title3)
+                            .foregroundStyle(.white)
+                            .frame(width: 40, height: 40)
+                            .background(announcementManager.isAnnouncing ? Color.blue : Color.gray)
+                            .clipShape(Circle())
+                            .shadow(radius: 2)
+                    }
+
+                    MapUserLocationButton(scope: mapScope)
+                        .buttonBorderShape(.circle)
+                }
+                .padding(.top, 60)
+                .padding(.trailing, 16)
             }
             .mapScope(mapScope)
             .edgesIgnoringSafeArea(.all)
@@ -46,6 +59,14 @@ struct MapView: View {
                         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
                     ))
                     hasInitiallyPositioned = true
+
+                    // Start announcements when location is first available
+                    announcementManager.startAnnouncements(location: location)
+                }
+
+                // Update announcement location when user moves
+                if let location = newLocation, announcementManager.isAnnouncing {
+                    announcementManager.currentLocation = location
                 }
             }
             .sheet(isPresented: $showingPOIDetails) {
@@ -85,6 +106,14 @@ struct MapView: View {
             } catch {
                 // Silently handle errors
             }
+        }
+    }
+
+    private func toggleAnnouncements() {
+        if announcementManager.isAnnouncing {
+            announcementManager.stopAnnouncements()
+        } else if let location = locationManager.location {
+            announcementManager.startAnnouncements(location: location)
         }
     }
 }
